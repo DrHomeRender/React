@@ -1,20 +1,45 @@
 import React from "react";
-import Hello from "./components/Hello";
-import Counter  from "./components/Counter";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import NotFound from "./pages/NotFound";
+import Contact from "./pages/Contact";
+import User from "./pages/User";
+import UserList from "./components/UserList";
 
 function App() {
-  return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>안녕하세요! Mac에서 React 시작 🚀</h1>
-      <p>React 배우는 중...</p>
-      <p>여기다 적으면....</p>
-      <Hello name="성운" age= {31} role="react 개발자"/>
+    return (
+        <Router>
+            <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <h1>
+            <span role="img" aria-label="rocket">🚀</span> React API 연동 (POST 요청)
+            </h1>
+                <UserList />
 
-      {/* 🔹 State를 사용하는 Counter 추가 */}
-      <Counter />
+                {/* 🔹 네비게이션 메뉴 */}
+                <nav style={{ margin: "20px 0" }}>
+                    <Link to="/" style={{ margin: "0 10px" }}>
+                        <span role="img" aria-label="home">🏠</span> 홈
+                    </Link>
+                    <Link to="/about" style={{ margin: "0 10px" }}>
+                        <span role="img" aria-label="about">ℹ️</span> 소개
+                    </Link>
+                    <Link to="/contact" style={{ margin: "0 10px" }}>
+                        <span role="img" aria-label="contact">📞</span> 연락처
+                    </Link>
+                </nav>
 
-    </div>
-  );
+                {/* 🔹 페이지 라우팅 */}
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/user/:name" element={<User />} />
+                    <Route path="*" element={<NotFound />} /> {/* 404 페이지 처리 */}
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
